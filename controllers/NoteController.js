@@ -6,12 +6,10 @@ var ObjectId = require('mongodb').ObjectID
 router.use(bodyParser.json());
 var mongoose = require('mongoose');
 
-const escapeStringRegexp = require('escape-string-regexp')
-
 router.get('/', function (req, res) {
     console.log("Request /Notes/")
-    db.collection('Notes').find().toArray(function(err, results) {
-        console.log("found "+results.length+" results")
+    db.collection('Notes').find().toArray(function (err, results) {
+        console.log("found " + results.length + " results")
         res.json(results);
     })
 });
@@ -19,9 +17,13 @@ router.get('/', function (req, res) {
 
 router.get('/categoryFiltered', function (req, res) {
     console.log("Request /Notes/categoryFiltered")
-    categories=req.query["categories"].split(";")
-    db.collection('Notes').find({'category': { $in: categories }}).toArray(function(err, results) {
-        console.log("found "+results.length+" results")
+    categories = req.query["categories"].split(";")
+    db.collection('Notes').find({
+        'category': {
+            $in: categories
+        }
+    }).toArray(function (err, results) {
+        console.log("found " + results.length + " results")
         res.json(results);
     })
 });

@@ -3,7 +3,7 @@ var app = express();
 var http = require('http');
 //var cors = require('cors')
 var bodyParser = require('body-parser');
-var PORT = 3000;
+var PORT = process.env.PORT || 5000;
 
 const MongoClient = require('mongodb').MongoClient
 
@@ -48,5 +48,5 @@ client.connect(err => {
     if (err) return console.log(err)
     db = client.db('NoteEver')
     var httpServer = http.createServer(app);
-    httpServer.listen(PORT, () => console.log(`API running on localhost:${PORT}`));
+    httpServer.listen(PORT, () => console.log(`API running on port ${PORT}`));
 })
